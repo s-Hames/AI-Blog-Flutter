@@ -3,13 +3,13 @@ import 'package:dio/dio.dart';
 
 class DioClient {
   static final Dio _authenticatedDio = Dio(BaseOptions(
-    baseUrl: "http://128.0.0.1:8000",
+    baseUrl: "http://127.0.0.1:8000/api",
     connectTimeout: const Duration(seconds: 5000),
     receiveTimeout: const Duration(seconds: 3000),
   ));
-
+ 
   static final Dio _unauthenticatedDio = Dio(BaseOptions(
-    baseUrl: "http://128.0.0.1:8000",
+    baseUrl: "http://127.0.0.1:8000/api",
     connectTimeout: const Duration(seconds: 5000),
     receiveTimeout: const Duration(seconds: 3000),
   ));
