@@ -4,8 +4,8 @@ import 'package:ai_blog_flutter/features/auth/domain/repository/auth_repository.
 import 'package:fpdart/fpdart.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthRemoteDataSourceImpl authRemoteDataSourceImpl;
-  AuthRepositoryImpl(this.authRemoteDataSourceImpl);
+  final AuthRemoteDataSource authRemoteDataSource;
+  AuthRepositoryImpl(this.authRemoteDataSource);
   @override
   Future<Either<Failure, String>> signInWithEmailPassword(
       {required String email, required String password}) {
@@ -19,7 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
       required String email,
       required String password}) async {
     try {
-      final user = await authRemoteDataSourceImpl.signUpWithEmailPassword(
+      final user = await authRemoteDataSource.signUpWithEmailPassword(
           name: name, email: email, password: password);
       return right(user);
     } catch (e) {

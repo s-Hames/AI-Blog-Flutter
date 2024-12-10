@@ -1,5 +1,6 @@
 import 'package:ai_blog_flutter/core/network/interceptors/auth_interceptor.dart';
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 
 class DioClient {
   static final Dio _authenticatedDio = Dio(BaseOptions(
@@ -7,7 +8,7 @@ class DioClient {
     connectTimeout: const Duration(seconds: 5000),
     receiveTimeout: const Duration(seconds: 3000),
   ));
- 
+
   static final Dio _unauthenticatedDio = Dio(BaseOptions(
     baseUrl: "http://127.0.0.1:8000/api",
     connectTimeout: const Duration(seconds: 5000),
@@ -24,6 +25,13 @@ class DioClient {
       ]);
     }
     return _authenticatedDio;
+  }
+
+  static void setup(GetIt getIt) {
+    getIt.registerLazySingleton<Dio>(()=>DioClient.unauthenticatedInstance,
+        instanceName: 'unauthenticatedDio');
+    getIt.registerLazySingleton<Dio>(()=>DioClient.authenticatedInstance,
+        instanceName: 'authenticatedDio');
   }
 
   static Dio get unauthenticatedInstance => _unauthenticatedDio;
